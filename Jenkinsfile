@@ -6,7 +6,7 @@ pipeline {
                 script {
                     try {
                         sh 'chmod 755 ./gradlew'
-                        sh './gradlew clean build -x test'
+                        sh './gradlew clean build'
                     } catch (e) {
                         sh 'echo Gradle test Fail!!!'
                         slackSend (channel: '#jenkins-test', color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
