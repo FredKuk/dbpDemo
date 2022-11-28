@@ -18,7 +18,7 @@ pipeline {
         stage('test file'){
             steps{
                 script{
-                    echo ./build/test-results/test/*.xml
+                    sh 'echo ./build/test-results/test/*.xml'
                 }
             }
         }
