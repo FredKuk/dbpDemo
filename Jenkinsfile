@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Gradle test') {
+        stage('Gradle Build') {
             steps {
                 script {
                     try {
@@ -14,6 +14,13 @@ pipeline {
                 }
             }
         }
+        
+        stage('JUnit Test'){
+            steps{
+                junit '**/build/test-results/test/*.xml'
+            }
+        }
+
         // stage('Dockerfile build') {
         //     steps {
         //         script {
