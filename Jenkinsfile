@@ -1,7 +1,15 @@
 pipeline {
     agent any
     stages {
-        stage('Gradle Build') {
+        stage('01. Git check out'){
+            steps{
+                script{
+                    sh 'echo GITLAB CHECKOUT PROCESS'
+                }
+            }
+        }
+
+        stage('02. Gradle build') {
             steps {
                 script {
                     try {
@@ -15,7 +23,7 @@ pipeline {
             }
         }
 
-        stage('test file'){
+        stage('03. JUnit test '){
             steps{
                 script{
                     sh 'echo ./build/test-results/test/*.xml'
@@ -23,7 +31,7 @@ pipeline {
             }
         }
 
-        stage('JUnit Test'){
+        stage('04. Testing result'){
             steps{
                 junit allowEmptyResults: true, testResults: '**/test-results/test/*.xml'
                 // junit './build/test-results/test/*.xml'
