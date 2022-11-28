@@ -15,9 +15,17 @@ pipeline {
             }
         }
 
+        stage('test file'){
+            steps{
+                script{
+                    echo ./build/test-results/test/*.xml
+                }
+            }
+        }
+
         stage('JUnit Test'){
             steps{
-                junit './build/test-results/*.xml'
+                junit './build/test-results/test/*.xml'
             }
         }
 
