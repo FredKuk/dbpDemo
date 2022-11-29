@@ -82,8 +82,12 @@ pipeline {
             
         stage('06. Deployment - Docker Clean') {
             steps {
-                echo 'Pull Docker Image & Docker Image Run'
-                sh "docker ps -q --filter name=dbpBook | grep -q . && docker rm -f \$(docker ps -aq --filter name=dbpBook)'docker run -d --name dbpBook -p 8080:8080 souress2/dbp_demo01'"
+                echo 'Pull Docker Image & Docker Image Run' 
+                sh (
+                    script: "docker ps -q --filter name=dbpBook | grep -q . && docker rm -f \$(docker ps -aq --filter name=dbpBook)'docker run -d --name dbpBook -p 8080:8080 souress2/dbp_demo01'",
+                    returnStatus: true
+                )
+                // sh "docker ps -q --filter name=dbpBook | grep -q . && docker rm -f \$(docker ps -aq --filter name=dbpBook)'docker run -d --name dbpBook -p 8080:8080 souress2/dbp_demo01'"
             }
         }
 
