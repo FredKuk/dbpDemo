@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    options {
+        gitLabConnection('gitlabDemo01')
+        gitlabBuilds(builds: ['build'])
+    }
     stages {
         stage('01. Git check out'){
             steps{
@@ -69,16 +73,33 @@ pipeline {
         //     }
         // }
     }
+
     post {
-        success {
-            updateGitlabCommitStatus name: ‘build’, state: ‘success’
-            slackSend (channel: '#jenkins', color: '#00FF00', message: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-        }
         failure {
-            updateGitlabCommitStatus name: ‘build’, state: ‘failed’
-            slackSend (channel: '#jenkins', color: '#FF0000', message: "FAIL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+        updateGitlabCommitStatus name: 'build', state: 'failed'
+        }
+        unstable {
+        updateGitlabCommitStatus name: 'build', state: 'failed'
+        }
+        aborted {
+        updateGitlabCommitStatus name: 'build', state: 'canceled'
+        }
+        success {
+        updateGitlabCommitStatus name: 'build', state: 'success'
+        }
+        always {
         }
     }
+    // post {
+    //     success {
+    //         updateGitlabCommitStatus name: jenkins, state: ‘success’
+    //         slackSend (channel: '#jenkins', color: '#00FF00', message: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+    //     }
+    //     failure {
+    //         updateGitlabCommitStatus name: jenkins, state: ‘failed’
+    //         slackSend (channel: '#jenkins', color: '#FF0000', message: "FAIL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+    //     }
+    // }
 
 }
 
