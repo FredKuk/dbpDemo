@@ -61,21 +61,7 @@ pipeline {
             }
         }
 
-        stage('05. Bulid Docker') {
-            steps {
-                echo 'Bulid Docker'
-                script {
-                    dockerImage = docker.build imagename
-                }
-            }
-            post {
-                failure {
-                    error 'This pipeline stops here...'
-                }
-            }
-        }
-            
-        stage('06. Deployment - Clean') {
+        stage('05. Deployment - Clean') {
             steps {
                 echo 'Docker PS and Image clean'
                 sh (
@@ -87,6 +73,20 @@ pipeline {
                     returnStatus: true
                 )
              }
+        }
+
+        stage('06. Deployment - Bulid Docker') {
+            steps {
+                echo 'Bulid Docker'
+                script {
+                    dockerImage = docker.build imagename
+                }
+            }
+            post {
+                failure {
+                    error 'This pipeline stops here...'
+                }
+            }
         }
 
         stage('07. Deployment - Run') {
