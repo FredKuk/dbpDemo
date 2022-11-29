@@ -1,6 +1,10 @@
-package com.dbp.demo01.model;
+package com.dbp.demo01.model.extd;
 
-public class Book{
+import com.dbp.demo01.model.Book;
+import org.springframework.stereotype.Component;
+
+@Component
+public class JayBook extends Book {
     private int book_id;
     private String name;
     private int type;
