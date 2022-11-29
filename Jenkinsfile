@@ -1,14 +1,30 @@
 pipeline {
     agent any
+
+    environment {
+        imagename = "souress2/dbp_demo01"
+        registryCredential = 'DockerHub'
+        dockerImage = ''
+    }
+    
     options {
         gitLabConnection('gitlabDemo01')
         gitlabBuilds(builds: ['jenkins'])
     }
+    
     stages {
-        stage('01. Git check out'){
+        stage('01. Git Prepare'){
             steps{
                 script{
-                    sh 'echo GITLAB CHECKOUT PROCESS'
+                    echo 'Clonning Repository'
+                }
+            }
+            post {
+                success { 
+                    echo 'Successfully Cloned Repository'
+                }
+                failure {
+                    error 'This pipeline stops here...'
                 }
             }
         }
@@ -46,32 +62,58 @@ pipeline {
                 // junit './build/test-results/test/*.xml'
             }
         }
+        stage('05. Bulid Docker') {
+            when {
+                branch 'main'
+            }
+            steps {
+                echo 'Bulid Docker'
+                script {
+                    dockerImage = docker.build imagename
+                }
+            }
+            post {
+                failure {
+                    error 'This pipeline stops here...'
+                }
+            }
+        }
 
-        // stage('Dockerfile build') {
-        //     steps {
-        //         script {
-        //             try {
-        //                 sh 'docker-compose -f docker-compose-dev.yml build'
-        //             } catch (e) {
-        //                 sh 'echo Dockerfile build Fail!!!'
-        //                 slackSend (channel: '#jenkins-test', color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-        //             }
-        //         }
-        //     }
-        // }
-        // stage('Docker-compose') {
-        //     steps {
-        //         script {
-        //             try {
-        //                 sh 'docker-compose -f docker-compose-dev.yml up -d'
-        //                 slackSend (channel: '#jenkins-test', color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-        //             } catch (e) {
-        //                 sh 'echo Docker-compose Fail!!!'
-        //                 slackSend (channel: '#jenkins-test', color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-        //             }
-        //         }
-        //     }
-        // }
+        stage('06. Push Docker') {
+            when {
+                branch 'main'
+            }
+            steps {
+                echo 'Push Docker'
+                script {
+                    docker.withRegistry( '', registryCredential) {
+                        dockerImage.push() 
+                    }
+                }
+            }
+            post {
+                failure {
+                    error 'This pipeline stops here...'
+                }
+            }
+        }
+            
+        stage('07. Deployment - Docker Run') {
+            when {
+                branch 'main'
+            }
+            steps {
+                echo 'Pull Docker Image & Docker Image Run'
+                    sh "docker pull souress2/dbp_demo01'" 
+                    sh "docker ps -q --filter name=dbpBook | grep -q . && docker rm -f \$(docker ps -aq --filter name=dbpBook)'"
+                    sh "docker run -d --name dbpBook -p 8080:8080 souress2/dbp_demo01'"
+                // sshagent (credentials: ['SSH Credential ID -> ssh']) {
+                //     sh "ssh -o StrictHostKeyChecking=no [Spring Boot Server username]@[Spring Boot Server IP 주소] 'docker pull [도커이미지 이름]'" 
+                //     sh "ssh -o StrictHostKeyChecking=no [Spring Boot Server username]@[Spring Boot Server IP 주소] 'docker ps -q --filter name=[컨테이너 이름] | grep -q . && docker rm -f \$(docker ps -aq --filter name=[컨테이너 이름])'"
+                //     sh "ssh -o StrictHostKeyChecking=no [Spring Boot Server username]@[Spring Boot Server IP 주소] 'docker run -d --name [컨테이너 이름] -p 8080:8080 [도커이미지 이름]'"
+                // }
+            }
+        }
     }
 
     post {
@@ -94,26 +136,24 @@ pipeline {
         // always {
         // }
     }
-    // post {
-    //     success {
-    //         updateGitlabCommitStatus name: jenkins, state: ‘success’
-    //         slackSend (channel: '#jenkins', color: '#00FF00', message: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-    //     }
-    //     failure {
-    //         updateGitlabCommitStatus name: jenkins, state: ‘failed’
-    //         slackSend (channel: '#jenkins', color: '#FF0000', message: "FAIL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-    //     }
-    // }
-
 }
 
-// pipeline {
-//     agent any
-//     stages {
-//         stage('Example1') {
-//             steps {
-//                 echo 'Hello World1 TEST FININSH'
-//             }
-//         }
+
+
+// stage('do something for PRs opened against develop branch') {
+//     when {
+//         changeRequest target: 'develop'
+//     }
+//     steps {
+//         sh 'pr-worker.sh'
+//     }
+// }
+
+// stage('do something on merge or direct commits to the develop branch') {
+//     when {
+//         branch 'develop'
+//     }
+//     steps {
+//         sh 'develop-worker.sh'
 //     }
 // }
