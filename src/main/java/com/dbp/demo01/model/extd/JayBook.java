@@ -1,7 +1,9 @@
 package com.dbp.demo01.model.extd;
 
 import com.dbp.demo01.model.Book;
+import org.springframework.stereotype.Component;
 
+@Component
 public class JayBook extends Book {
     private int book_id;
     private String name;
