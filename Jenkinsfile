@@ -81,19 +81,9 @@ pipeline {
         }
             
         stage('06. Deployment - Docker Clean') {
-            // when {
-            //     branch 'origin/main'
-            // }
             steps {
                 echo 'Pull Docker Image & Docker Image Run'
-                // sh "docker pull souress2/dbp_demo01" 
-                sh "docker ps -q --filter name=dbpBook | grep -q . && docker rm -f \$(docker ps -aq --filter name=dbpBook)'"
-                sh "docker run -d --name dbpBook -p 8080:8080 souress2/dbp_demo01'"
-                // sshagent (credentials: ['SSH Credential ID -> ssh']) {
-                //     sh "ssh -o StrictHostKeyChecking=no [Spring Boot Server username]@[Spring Boot Server IP 주소] 'docker pull [도커이미지 이름]'" 
-                //     sh "ssh -o StrictHostKeyChecking=no [Spring Boot Server username]@[Spring Boot Server IP 주소] 'docker ps -q --filter name=[컨테이너 이름] | grep -q . && docker rm -f \$(docker ps -aq --filter name=[컨테이너 이름])'"
-                //     sh "ssh -o StrictHostKeyChecking=no [Spring Boot Server username]@[Spring Boot Server IP 주소] 'docker run -d --name [컨테이너 이름] -p 8080:8080 [도커이미지 이름]'"
-                // }
+                sh "docker ps -q --filter name=dbpBook | grep -q . && docker rm -f $(docker ps -aq --filter name=dbpBook)'docker run -d --name dbpBook -p 8080:8080 souress2/dbp_demo01'"
             }
         }
 
