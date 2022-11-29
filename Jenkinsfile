@@ -87,8 +87,8 @@ pipeline {
             steps {
                 echo 'Pull Docker Image & Docker Image Run'
                 // sh "docker pull souress2/dbp_demo01" 
-                sh "docker ps -q --filter name=dbpBook | grep -q . && docker rm -f \$(docker ps -aq --filter name=dbpBook)'"
-                sh "docker run -d --name dbpBook -p 8080:8080 souress2/dbp_demo01'"
+                sh "docker ps -q --filter name=dbpBook | grep -q . && docker rm -f \$(docker ps -aq --filter name=dbpBook)"
+                sh "docker run -d --name dbpBook -p 8080:8080 souress2/dbp_demo01"
                 script  {
                     dockerImage.run()
                 }
