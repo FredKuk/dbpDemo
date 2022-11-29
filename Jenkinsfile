@@ -91,7 +91,7 @@ pipeline {
 
         stage('07. Deployment - Run') {
             steps {
-                sh "docker run -d --name dbpBook -p 8080:8080 souress2/dbp_demo01:dbp"
+                sh "docker run -d --name dbpBook -p 8081:8080 souress2/dbp_demo01:dbp"
             }
         }
 
