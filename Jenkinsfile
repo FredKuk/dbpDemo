@@ -82,6 +82,10 @@ pipeline {
                     script: "docker ps -q --filter name=dbpBook | grep -q . && docker rm -f \$(docker ps -aq --filter name=dbpBook)",
                     returnStatus: true
                 )
+                sh (
+                    script: "docker rmi $(docker images -q --filter=reference='souress2/*')",
+                    returnStatus: true
+                )
              }
         }
 
