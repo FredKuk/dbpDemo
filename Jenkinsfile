@@ -83,7 +83,7 @@ pipeline {
                     returnStatus: true
                 )
                 sh (
-                    script: "docker rmi $(docker images -q --filter=reference='souress2/*')",
+                    script: "docker rmi \$(docker images -q --filter=reference='souress2/*')",
                     returnStatus: true
                 )
              }
