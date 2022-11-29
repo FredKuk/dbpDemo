@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        imagename = "souress2/dbp_demo01"
+        imagename = "souress2/dbp_demo01:dbp"
         registryCredential = 'DockerHub'
         dockerImage = ''
     }
@@ -46,7 +46,6 @@ pipeline {
             steps{
                 script{
                     try {
-                        // sh 'echo ./build/test-results/test/*.xml'
                         sh './gradlew test'
                     } catch (e) {
                         sh 'echo Gradle Test Fail!!!!'
@@ -59,14 +58,24 @@ pipeline {
         stage('04. Testing result'){
             steps{
                 junit allowEmptyResults: true, testResults: '**/test-results/test/*.xml'
-                // junit './build/test-results/test/*.xml'
             }
         }
 
-        stage('05. Bulid Docker') {
-            // when {
-            //     branch 'origin/main'
-            // }
+        stage('05. Deployment - Clean') {
+            steps {
+                echo 'Docker PS and Image clean'
+                sh (
+                    script: "docker ps -q --filter name=dbpBook | grep -q . && docker rm -f \$(docker ps -aq --filter name=dbpBook)",
+                    returnStatus: true
+                )
+                sh (
+                    script: "docker rmi \$(docker images -q --filter=reference='souress2/*')",
+                    returnStatus: true
+                )
+             }
+        }
+
+        stage('06. Deployment - Bulid Docker') {
             steps {
                 echo 'Bulid Docker'
                 script {
@@ -79,25 +88,14 @@ pipeline {
                 }
             }
         }
-            
-        stage('06. Deployment - Docker Clean') {
+
+        stage('07. Deployment - Run') {
             steps {
-                echo 'Pull Docker Image & Docker Image Run'
-                sh "docker ps -q --filter name=dbpBook | grep -q . && docker rm -f \$(docker ps -aq --filter name=dbpBook)'docker run -d --name dbpBook -p 8080:8080 souress2/dbp_demo01'"
+                sh "docker run -d --name dbpBook -p 8081:8080 souress2/dbp_demo01:dbp"
             }
         }
 
-        stage('06. Deployment - Docker Run') {
-            steps {
-                script  {
-                    dockerImage.run()
-                }
-            }
-        }
-        stage('07. Push Docker') {
-            // when {
-            //     branch 'origin/main'
-            // }
+        stage('08. Finish - Image to DockerHub') {
             steps {
                 echo 'Push Docker'
                 script {
@@ -133,27 +131,5 @@ pipeline {
             updateGitlabCommitStatus name: 'jenkins', state: 'success'
             slackSend (channel: '#jenkins', color: '#00FF00', message: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
         }
-        // always {
-        // }
     }
 }
-
-
-
-// stage('do something for PRs opened against develop branch') {
-//     when {
-//         changeRequest target: 'develop'
-//     }
-//     steps {
-//         sh 'pr-worker.sh'
-//     }
-// }
-
-// stage('do something on merge or direct commits to the develop branch') {
-//     when {
-//         branch 'develop'
-//     }
-//     steps {
-//         sh 'develop-worker.sh'
-//     }
-// }
