@@ -17,7 +17,6 @@ pipeline {
                         sh './gradlew clean build -x test'
                     } catch (e) {
                         sh 'echo Gradle Build Fail!!!'
-                        // slackSend (channel: '#jenkins-test', color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
                     }
                 }
             }
@@ -30,8 +29,8 @@ pipeline {
                         // sh 'echo ./build/test-results/test/*.xml'
                         sh './gradlew test'
                     } catch (e) {
-                        sh 'echo Gradle Test Fail!!!'
-                        // slackSend (channel: '#jenkins-test', color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+                        sh 'echo Gradle Test Fail!!!!'
+                        slackSend (channel: '#jenkins-test', color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
                     }
                 }
             }
