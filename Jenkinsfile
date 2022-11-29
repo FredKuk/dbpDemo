@@ -64,9 +64,9 @@ pipeline {
         }
 
         stage('05. Bulid Docker') {
-            when {
-                branch 'origin/main'
-            }
+            // when {
+            //     branch 'origin/main'
+            // }
             steps {
                 echo 'Bulid Docker'
                 script {
@@ -81,9 +81,9 @@ pipeline {
         }
 
         stage('06. Push Docker') {
-            when {
-                branch 'origin/main'
-            }
+            // when {
+            //     branch 'origin/main'
+            // }
             steps {
                 echo 'Push Docker'
                 script {
@@ -100,9 +100,9 @@ pipeline {
         }
             
         stage('07. Deployment - Docker Run') {
-            when {
-                branch 'origin/main'
-            }
+            // when {
+            //     branch 'origin/main'
+            // }
             steps {
                 echo 'Pull Docker Image & Docker Image Run'
                     sh "docker pull souress2/dbp_demo01'" 
