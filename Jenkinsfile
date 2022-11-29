@@ -62,9 +62,10 @@ pipeline {
                 // junit './build/test-results/test/*.xml'
             }
         }
+
         stage('05. Bulid Docker') {
             when {
-                branch 'main'
+                branch 'origin/main'
             }
             steps {
                 echo 'Bulid Docker'
@@ -81,7 +82,7 @@ pipeline {
 
         stage('06. Push Docker') {
             when {
-                branch 'main'
+                branch 'origin/main'
             }
             steps {
                 echo 'Push Docker'
@@ -100,7 +101,7 @@ pipeline {
             
         stage('07. Deployment - Docker Run') {
             when {
-                branch 'main'
+                branch 'origin/main'
             }
             steps {
                 echo 'Pull Docker Image & Docker Image Run'
