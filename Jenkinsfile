@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        imagename = "souress2/dbp_demo01"
+        imagename = "souress2/dbp_demo01:dbp"
         registryCredential = 'DockerHub'
         dockerImage = ''
     }
@@ -66,7 +66,6 @@ pipeline {
                 echo 'Bulid Docker'
                 script {
                     dockerImage = docker.build imagename
-                    dockerImage.tag(["dbp"])
                 }
             }
             post {
