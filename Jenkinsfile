@@ -71,7 +71,6 @@ pipeline {
                 echo 'Bulid Docker'
                 script {
                     dockerImage = docker.build imagename
-                    dockerImage.tag(["dbp"])
                 }
             }
             post {
