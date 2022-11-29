@@ -76,19 +76,19 @@ pipeline {
 
     post {
         failure {
-        updateGitlabCommitStatus name: 'build', state: 'failed'
+            updateGitlabCommitStatus name: 'build', state: 'failed'
         }
         unstable {
-        updateGitlabCommitStatus name: 'build', state: 'failed'
+            updateGitlabCommitStatus name: 'build', state: 'failed'
         }
         aborted {
-        updateGitlabCommitStatus name: 'build', state: 'canceled'
+            updateGitlabCommitStatus name: 'build', state: 'canceled'
         }
         success {
-        updateGitlabCommitStatus name: 'build', state: 'success'
+            updateGitlabCommitStatus name: 'build', state: 'success'
         }
-        always {
-        }
+        // always {
+        // }
     }
     // post {
     //     success {
