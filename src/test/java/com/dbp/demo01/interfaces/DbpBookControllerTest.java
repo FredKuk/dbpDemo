@@ -12,23 +12,23 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.dbp.demo01.controller.impl_jaden.DbpBookControllerImpl;
-import com.dbp.demo01.model.Book;
-import com.dbp.demo01.service.BookService;
+import com.dbp.demo01.controller.impl_jaden.ComicBookControllerImpl;
+import com.dbp.demo01.model.extd.ComicBook;
+import com.dbp.demo01.service.impl_jaden.ComicBookService;
 
-@WebMvcTest(DbpBookControllerImpl.class)
+@WebMvcTest(ComicBookControllerImpl.class)
 public class DbpBookControllerTest {
 
     @Autowired
     private MockMvc mvc;
 
     @MockBean
-    private BookService booksService;
+    private ComicBookService comicBooksService;
 
     @Test
     public void findBookAll() throws Exception {
-        List<Book> books = new ArrayList<Book>();
-        given(booksService.findAll()).willReturn(books);
+        List<ComicBook> books = new ArrayList<ComicBook>();
+        given(comicBooksService.findAll()).willReturn(books);
         mvc.perform(get("/jaden/book"))
             .andExpect(status().isOk());
     }

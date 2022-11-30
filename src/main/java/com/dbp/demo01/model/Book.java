@@ -1,17 +1,17 @@
 package com.dbp.demo01.model;
 
 public class Book{
-    private int book_id;
+    private int bookId;
     private String name;
     private int type;
     private String company;
 
-    public int getBook_id() {
-        return book_id;
+    public int getBookId() {
+        return bookId;
     }
 
-    public void setBook_id(int book_id) {
-        this.book_id = book_id;
+    public void setbookId(int bookId) {
+        this.bookId = bookId;
     }
 
     public String getName() {

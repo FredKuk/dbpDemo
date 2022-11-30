@@ -9,27 +9,27 @@ public class ComicBook extends Book{
     String company;
 
     public int getBookId(){
-        return 0;
+        return this.bookId;
     }
-    public void setBookId(int book_id){
-
+    public void setBookId(int bookId){
+        this.bookId=bookId;
     }
     public String getName(){
-        return "";
+        return this.name;
     }
     public void setName(String name){
-
+        this.name=name;
     }
     public int getType(){
-        return 0;
+        return this.type;
     }
     public void setType(int type){
-        
+        this.type=type;
     }
     public String getCompany(){
-        return "";
+        return this.company;
     }
     public void setCompany(String company){
-        
+        this.company=company;
     }
 }
