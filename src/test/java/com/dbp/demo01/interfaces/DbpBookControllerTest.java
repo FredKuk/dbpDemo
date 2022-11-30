@@ -20,7 +20,7 @@ import com.dbp.demo01.service.impl_jaden.ComicBookService;
 public class DbpBookControllerTest {
 
     @Autowired
-    private MockMvc mvc;
+    private MockMvc mockMvc;
 
     @MockBean
     private ComicBookService comicBooksService;
@@ -29,7 +29,7 @@ public class DbpBookControllerTest {
     public void findBookAll() throws Exception {
         List<ComicBook> books = new ArrayList<ComicBook>();
         given(comicBooksService.findAll()).willReturn(books);
-        mvc.perform(get("/jaden/book"))
+        mockMvc.perform(get("/jaden/book"))
             .andExpect(status().isOk());
     }
 }
