@@ -42,26 +42,26 @@ pipeline {
             }
         }
 
-        stage('03. JUnit test '){
-            steps{
-                script{
-                    try {
-                        sh './gradlew test'
-                    } catch (e) {
-                        sh 'echo Gradle Test Fail!!!!'
-                        slackSend (channel: '#jenkins', color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-                    }
-                }
-            }
-        }
+        // stage('03. JUnit test '){
+        //     steps{
+        //         script{
+        //             try {
+        //                 sh './gradlew test'
+        //             } catch (e) {
+        //                 sh 'echo Gradle Test Fail!!!!'
+        //                 slackSend (channel: '#jenkins', color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+        //             }
+        //         }
+        //     }
+        // }
 
-        stage('04. Testing result'){
-            steps{
-                junit allowEmptyResults: true, testResults: '**/test-results/test/*.xml'
-            }
-        }
+        // stage('04. Testing result'){
+        //     steps{
+        //         junit allowEmptyResults: true, testResults: '**/test-results/test/*.xml'
+        //     }
+        // }
 
-        stage('05. Deployment - Clean') {
+        stage('03. Deployment - Clean') {
             steps {
                 echo 'Docker PS and Image clean'
                 sh (
@@ -75,7 +75,7 @@ pipeline {
              }
         }
 
-        stage('06. Deployment - Bulid Docker') {
+        stage('04. Deployment - Bulid Docker') {
             steps {
                 echo 'Bulid Docker'
                 script {
@@ -89,13 +89,13 @@ pipeline {
             }
         }
 
-        stage('07. Deployment - Run') {
+        stage('05. Deployment - Run') {
             steps {
                 sh "docker run -d --name dbpBook -p 8081:8080 souress2/dbp_demo01:dbp"
             }
         }
 
-        stage('08. Finish - Image to DockerHub') {
+        stage('06. Finish - Image to DockerHub') {
             steps {
                 echo 'Push Docker'
                 script {
