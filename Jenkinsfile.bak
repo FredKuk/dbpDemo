@@ -42,28 +42,28 @@ pipeline {
             }
         }
 
-        stage('03. JUnit test '){
-            steps{
-                script{
-                    try {
-                        // sh 'echo ./build/test-results/test/*.xml'
-                        sh './gradlew test'
-                    } catch (e) {
-                        sh 'echo Gradle Test Fail!!!!'
-                        slackSend (channel: '#jenkins', color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-                    }
-                }
-            }
-        }
+        // stage('03. JUnit test '){
+        //     steps{
+        //         script{
+        //             try {
+        //                 // sh 'echo ./build/test-results/test/*.xml'
+        //                 sh './gradlew test'
+        //             } catch (e) {
+        //                 sh 'echo Gradle Test Fail!!!!'
+        //                 slackSend (channel: '#jenkins', color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+        //             }
+        //         }
+        //     }
+        // }
 
-        stage('04. Testing result'){
-            steps{
-                junit allowEmptyResults: true, testResults: '**/test-results/test/*.xml'
-                // junit './build/test-results/test/*.xml'
-            }
-        }
+        // stage('04. Testing result'){
+        //     steps{
+        //         junit allowEmptyResults: true, testResults: '**/test-results/test/*.xml'
+        //         // junit './build/test-results/test/*.xml'
+        //     }
+        // }
 
-        stage('05. Bulid Docker') {
+        stage('03. Bulid Docker') {
             // when {
             //     branch 'origin/main'
             // }
@@ -81,7 +81,7 @@ pipeline {
             }
         }
 
-        stage('06. Push Docker') {
+        stage('04. Push Docker') {
             // when {
             //     branch 'origin/main'
             // }
@@ -100,7 +100,7 @@ pipeline {
             }
         }
             
-        stage('07. Deployment - Docker Run') {
+        stage('05. Deployment - Docker Run') {
             // when {
             //     branch 'origin/main'
             // }
