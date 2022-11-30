@@ -65,7 +65,7 @@ pipeline {
             steps {
                 echo 'Docker PS and Image clean'
                 sh (
-                    script: "docker rm -f \$(docker ps -q -a --filter name=dbpBook)"
+                    script: "docker rm -f \$(docker ps -q -a --filter name=dbpBook)",
                     returnStatus: true
                 )
                 // sh (
