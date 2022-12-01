@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script {
                     sh 'chmod 755 ./gradlew'
-                    sh './gradlew clean build -x test'
+                    sh './gradlew clean build --stacktrace -x test'
                 }
             }
             post {
