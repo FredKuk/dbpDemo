@@ -2,7 +2,16 @@ package com.dbp.demo01.model;
 
 import java.sql.Date;
 
-public class good {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Good{
     int goodNo;
     String name;
     int type;

@@ -13,8 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 // import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.dbp.demo01.controller.impl_jaden.CustomerControllerImpl;
-// import com.dbp.demo01.model.extd.ComicBook;
-import com.dbp.demo01.service.impl_jaden.ComicBookService;
+import com.dbp.demo01.service.CustomerService;
 
 @WebMvcTest(CustomerControllerImpl.class)
 public class ComicBookControllerTest {
@@ -23,7 +22,7 @@ public class ComicBookControllerTest {
     // private MockMvc mockMvc;
 
     @MockBean
-    private ComicBookService comicBooksService;
+    private CustomerService comicBooksService;
 
     @Test
     public void findBookAll() throws Exception {

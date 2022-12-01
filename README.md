@@ -13,11 +13,11 @@ GET
 >/{my name}/{object}/{Id}
 
 **변경
-POST
+PUT
 >/{my name}/{object}/{Id}
 
 **삭제
-PUT
+PATCH
 >/{my name}/{object}/{Id}
 
 ### 요건
