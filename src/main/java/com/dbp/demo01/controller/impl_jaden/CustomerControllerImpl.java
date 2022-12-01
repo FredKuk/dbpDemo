@@ -24,7 +24,7 @@ public class CustomerControllerImpl implements CustomerController{
     private CustomerService customerService;
 
     @Override
-    @GetMapping("/")
+    @GetMapping("")
     public List<Customer> findAll() {
         return customerService.findAll();
     }
@@ -37,14 +37,14 @@ public class CustomerControllerImpl implements CustomerController{
     }
 
     @Override
-    @PostMapping(value = "/", produces = "application/json")
+    @PostMapping(value = "", produces = "application/json")
     public Customer create(@RequestBody Customer customer) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    @PutMapping(value = "/", produces = "application/json")
+    @PutMapping(value = "", produces = "application/json")
     public Customer update(@RequestBody Customer customer) {
         // TODO Auto-generated method stub
         return null;
