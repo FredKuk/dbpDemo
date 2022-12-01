@@ -12,11 +12,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 // import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 // import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.dbp.demo01.controller.impl_jaden.ComicBookControllerImpl;
+import com.dbp.demo01.controller.impl_jaden.CustomerControllerImpl;
 // import com.dbp.demo01.model.extd.ComicBook;
 import com.dbp.demo01.service.impl_jaden.ComicBookService;
 
-@WebMvcTest(ComicBookControllerImpl.class)
+@WebMvcTest(CustomerControllerImpl.class)
 public class ComicBookControllerTest {
 
     // @Autowired

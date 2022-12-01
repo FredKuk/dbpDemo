@@ -12,7 +12,7 @@ import com.dbp.demo01.service.impl_jaden.ComicBookService;
 
 @RestController
 @RequestMapping("/jaden")
-public class ComicBookControllerImpl implements ComicBookController{
+public class CustomerControllerImpl implements CustomerController{
 
     @Autowired
     private ComicBookService comicBookService;

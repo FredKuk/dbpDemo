@@ -2,7 +2,7 @@ package com.dbp.demo01.model;
 
 import java.sql.Date;
 
-public class gComment {
+public class GComment {
     int gCommentNo;
     int gReviewNo;
     String subject;
