@@ -32,12 +32,16 @@ pipeline {
         stage('02. Gradle build') {
             steps {
                 script {
-                    try {
-                        sh 'chmod 755 ./gradlew'
-                        sh './gradlew clean build -x test'
-                    } catch (e) {
-                        sh 'echo Gradle Build Fail!!!'
-                    }
+                    sh 'chmod 755 ./gradlew'
+                    sh './gradlew clean build -x test'
+                }
+            }
+            post {
+                success { 
+                    echo 'Successfully Gradle Build'
+                }
+                failure {
+                    error 'This pipeline stops here...'
                 }
             }
         }
@@ -77,6 +81,14 @@ pipeline {
                     returnStatus: true
                 )
              }
+            post {
+                success { 
+                    echo 'Successfully Clean Docker Environment'
+                }
+                failure {
+                    error 'This pipeline stops here...'
+                }
+            }
         }
 
         stage('04. Deployment - Bulid Docker') {
@@ -87,6 +99,9 @@ pipeline {
                 }
             }
             post {
+                success { 
+                    echo 'Successfully Build Docker'
+                }
                 failure {
                     error 'This pipeline stops here...'
                 }
@@ -96,6 +111,14 @@ pipeline {
         stage('05. Deployment - Run') {
             steps {
                 sh "docker run -d --name dbpBook -p 8081:8080 souress2/dbp_demo01:dbp"
+            }
+            post {
+                success { 
+                    echo 'Successfully Run Docker'
+                }
+                failure {
+                    error 'This pipeline stops here...'
+                }
             }
         }
 
@@ -110,6 +133,9 @@ pipeline {
                 echo 'docker rmi -f $(docker images --filter=reference="souress2/*" -q)'
             }
             post {
+                success { 
+                    echo 'Successfully Pull Docker Image'
+                }
                 failure {
                     error 'This pipeline stops here...'
                 }
