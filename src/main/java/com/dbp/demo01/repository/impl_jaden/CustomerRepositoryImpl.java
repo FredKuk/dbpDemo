@@ -20,12 +20,12 @@ public class CustomerRepositoryImpl implements CustomerRepository{
 
 	@Autowired
     public void setJdbcTemplate() {
-        this.jdbcTemplate = new JdbcTemplate(dAppConfig.jadentDataSource());
+        this.jdbcTemplate = new JdbcTemplate(dAppConfig.jadenDataSource());
     }
 
 	@Override
 	public List<Customer> findAll() {
-		String SQL = "SELECT * FROM book";
+		String SQL = "SELECT * FROM customer";
 		return jdbcTemplate.query(SQL, customerRowMapper());
 	}
 

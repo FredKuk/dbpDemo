@@ -20,7 +20,7 @@ public class DataAppConfig {
     }
     
     @Bean
-    public DataSource jadentDataSource(){
+    public DataSource jadenDataSource(){
         return jadenDataSourceProperties()
             .initializeDataSourceBuilder()
             .type(HikariDataSource.class)
