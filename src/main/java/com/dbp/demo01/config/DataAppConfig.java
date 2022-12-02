@@ -12,7 +12,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 public class DataAppConfig {
-
+    
     @Bean
     @ConfigurationProperties("spring.datasource.jaden")
     public DataSourceProperties jadenDataSourceProperties(){
