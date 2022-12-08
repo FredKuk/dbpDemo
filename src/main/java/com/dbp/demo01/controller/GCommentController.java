@@ -4,8 +4,8 @@ import com.dbp.demo01.model.GComment;
 
 public interface GCommentController {
     public List<GComment> findAll();
-    public GComment findById(int gCommentId);
+    public GComment findById(int gCommentNo);
     public GComment create(GComment gComment);
     public GComment update(GComment gComment);
-    public GComment delete(int gCommentId);
+    public GComment delete(int gCommentNo);
 }

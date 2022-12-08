@@ -23,6 +23,11 @@ public class CustomerControllerImpl implements CustomerController{
     @Autowired
     private CustomerService customerService;
 
+    // @Autowired
+    // public CustomerControllerImpl(CustomerService customerService){
+    //     this.customerService=customerService;
+    // }
+
     @Override
     @GetMapping("")
     public List<Customer> findAll() {
@@ -30,30 +35,26 @@ public class CustomerControllerImpl implements CustomerController{
     }
 
     @Override
-    @GetMapping("/{cusId}")
-    public Customer findById(@PathVariable int cusId) {
-        // TODO Auto-generated method stub
-        return null;
+    @GetMapping("/{id}")
+    public Customer findById(@PathVariable String id) {
+        return customerService.findById(id);
     }
 
     @Override
     @PostMapping(value = "", produces = "application/json")
-    public Customer create(@RequestBody Customer customer) {
-        // TODO Auto-generated method stub
-        return null;
+    public Boolean create(@RequestBody Customer customer) {
+        return customerService.create(customer);
     }
 
     @Override
     @PutMapping(value = "", produces = "application/json")
-    public Customer update(@RequestBody Customer customer) {
-        // TODO Auto-generated method stub
-        return null;
+    public Boolean update(@RequestBody Customer customer) {
+        return customerService.update(customer);
     }
 
     @Override
-    @PatchMapping("/{cusId}")
-    public Customer delete(@PathVariable int cusId) {
-        // TODO Auto-generated method stub
-        return null;
+    @PatchMapping("/{id}")
+    public Boolean delete(@PathVariable String id) {
+        return customerService.delete(id);
     }    
 }

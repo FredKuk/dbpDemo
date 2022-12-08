@@ -12,56 +12,42 @@ import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 public class DataAppConfig {
-    
-    @Bean
-    @ConfigurationProperties("spring.datasource.jaden")
-    public DataSourceProperties jadenDataSourceProperties(){
-        return new DataSourceProperties();
-    }
-    
-    @Bean
-    public DataSource jadenDataSource(){
-        return jadenDataSourceProperties()
-            .initializeDataSourceBuilder()
-            .type(HikariDataSource.class)
-            .build();
-    }
 
     @Bean
-    @ConfigurationProperties("spring.datasource.jay")
+    @ConfigurationProperties("spring.jay.datasource")
     public DataSourceProperties jayDataSourceProperties(){
         return new DataSourceProperties();
     }
     
     @Bean
     public DataSource jayDataSource(){
-        return jadenDataSourceProperties()
+        return jayDataSourceProperties()
             .initializeDataSourceBuilder()
             .type(HikariDataSource.class)
             .build();
     }
     @Bean
-    @ConfigurationProperties("spring.datasource.metal")
+    @ConfigurationProperties("spring.metal.datasource")
     public DataSourceProperties metalDataSourceProperties(){
         return new DataSourceProperties();
     }
     
     @Bean
     public DataSource metalDataSource(){
-        return jadenDataSourceProperties()
+        return metalDataSourceProperties()
             .initializeDataSourceBuilder()
             .type(HikariDataSource.class)
             .build();
     }
     @Bean
-    @ConfigurationProperties("spring.datasource.tony")
+    @ConfigurationProperties("spring.tony.datasource")
     public DataSourceProperties tonyDataSourceProperties(){
         return new DataSourceProperties();
     }
     
     @Bean
     public DataSource tonyDataSource(){
-        return jadenDataSourceProperties()
+        return tonyDataSourceProperties()
             .initializeDataSourceBuilder()
             .type(HikariDataSource.class)
             .build();

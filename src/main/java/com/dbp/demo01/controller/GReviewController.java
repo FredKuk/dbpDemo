@@ -4,8 +4,8 @@ import com.dbp.demo01.model.GReview;
 
 public interface GReviewController {
     public List<GReview> findAll();
-    public GReview findById(int gReviewId);
+    public GReview findById(int gReviewNo);
     public GReview create(GReview gReview);
     public GReview update(GReview gReview);
-    public GReview delete(int gReviewId);
+    public GReview delete(int gReviewNo);
 }

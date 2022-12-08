@@ -1,14 +1,16 @@
 package com.dbp.demo01.model;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Customer {
@@ -16,7 +18,7 @@ public class Customer {
     String name;
     String id;
     String pwd;
-    Date startDate;
-    Date changeDate;
+    LocalDateTime startDate;
+    LocalDateTime changeDate;
     int stat;
 }
