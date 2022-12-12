@@ -1,5 +1,11 @@
-
 spring:
+    #&tlsVersion=TLSv1.2&useUnicode=true
+    r2dbc:
+        url: r2dbc:mysql://192.168.0.28:3306/JADEN?serverTimeZone=UTC&CharacterEncoding=UTF-8
+        username: jaden
+        password: jaden
+        pool.enabled: true
+            
     jpa:
         hibernate:
             naming.implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl

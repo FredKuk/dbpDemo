@@ -1,0 +1,12 @@
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'GReviewControllerImpl':
+ Unsatisfied dependency expressed through field 'gReviewRepository'; nested exception is org.springframework.beans.factory.BeanCreationException: 
+ Error creating bean with name 'GReviewRepository' defined in com.dbp.demo01.repository.webflux.GReviewRepository defined in @EnableR2dbcRepositories declared on JadenR2DBCConfig: 
+ Cannot resolve reference to bean 'mysqlR2dbcEntityOperations' while setting bean property 'entityOperations'; 
+ nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: 
+ Error creating bean with name 'mysqlR2dbcEntityOperations' defined in class path resource [com/dbp/demo01/config/JadenR2DBCConfig.class]: 
+ Unsatisfied dependency expressed through method 'mysqlR2dbcEntityOperations' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: 
+ Error creating bean with name 'mysqlConnectionFactory' defined in class path resource [com/dbp/demo01/config/JadenR2DBCConfig.class]: 
+ Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: 
+ Failed to instantiate [io.r2dbc.spi.ConnectionFactory]: Factory method 'mysqlConnectionFactory' threw exception; nested exception is java.lang.IllegalStateException: 
+ Unable to create a ConnectionFactory for 'ConnectionFactoryOptions{options={database=JADEN, host=192.168.0.28, driver=mysql, port=3306, CharacterEncoding=UTF-8, serverTimeZone=UTC}}'.
+ Available drivers: [ pool ]
